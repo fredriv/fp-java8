@@ -27,12 +27,10 @@ public class Exercise_4_Parallelism_Test {
 
         // TODO: Rewrite the conversion to run in parallel, still using the
         // longRunningAgeCheck method to filter the teens
-        List<String> names = new ArrayList<>();
-        for (Person person : people) {
-            if (longRunningAgeCheck(person)) {
-                names.add(person.getFirstName());
-            }
-        }
+        List<String> names = people.parallelStream()
+                .filter(p -> longRunningAgeCheck(p))
+                .map(Person::getFirstName)
+                .collect(toList());
 
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;

@@ -36,7 +36,7 @@ public class Exercise_3_Optional_Test {
     public void length_of_sith_name() throws Exception {
         // TODO: Find length of sith name of person
         Function<Person, Optional<Integer>> length_of_sith_name =
-                person -> undefined();
+                person -> person.getSithName().map(String::length);
 
         assertThat(length_of_sith_name.apply(luke), is(Optional.empty()));
         assertThat(length_of_sith_name.apply(anakin), is(Optional.of(11)));
@@ -47,7 +47,7 @@ public class Exercise_3_Optional_Test {
         // TODO: Check if person is the sith lord Darth Vader
         // Hint: use Optional.orElse
         Function<Person, Boolean> isDarthVader =
-                person -> undefined();
+                person -> person.getSithName().map("Darth Vader"::equals).orElse(false);
 
         assertThat(isDarthVader.apply(luke), is(false));
         assertThat(isDarthVader.apply(anakin), is(true));
@@ -65,7 +65,10 @@ public class Exercise_3_Optional_Test {
 
         // TODO: Find the sith names of the people in the list
         // Hint: Use either filter + map or flatMap + toStream (see imports)
-        List<String> sith_names = undefined();
+        List<String> sith_names = people.stream()
+                .map(Person::getSithName)
+                .flatMap(Helpers::toStream)
+                .collect(Collectors.toList());
 
         assertThat(sith_names, contains("Darth Vader"));
     }
@@ -75,7 +78,10 @@ public class Exercise_3_Optional_Test {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
         // TODO: Find the full name of the oldest person in the list
-        String full_name = undefined();
+        String full_name = people.stream()
+                .max(Comparator.comparing(Person::getAge))
+                .map(p -> p.getFirstName() + " " + p.getLastName())
+                .get();
 
         assertThat(full_name, is("Bail Organa"));
     }

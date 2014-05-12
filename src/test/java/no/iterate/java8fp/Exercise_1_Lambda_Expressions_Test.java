@@ -37,7 +37,7 @@ public class Exercise_1_Lambda_Expressions_Test {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
         // TODO: Implement CheckPerson lambda which returns true for people named Skywalker
-        CheckPerson isSkywalker = undefined();
+        CheckPerson isSkywalker = p -> p.getLastName().equals("Skywalker");
         List<Person> skywalkers = findPeople(people, isSkywalker);
 
         assertThat(skywalkers, hasItems(luke, anakin));
@@ -49,7 +49,7 @@ public class Exercise_1_Lambda_Expressions_Test {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
         // TODO: Implement CheckPerson lambda which returns true for teens
-        CheckPerson isTeen = undefined();
+        CheckPerson isTeen = p -> 13 <= p.getAge() && p.getAge() <= 19;
         List<Person> skywalkers = findPeople(people, isTeen);
 
         assertThat(skywalkers, hasItems(luke, leia));
@@ -65,7 +65,7 @@ public class Exercise_1_Lambda_Expressions_Test {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
         // TODO: Implement Extractor which returns first name of people
-        Extractor<Person, String> first_name = undefined();
+        Extractor<Person, String> first_name = Person::getFirstName;
         List<String> first_names = extract(people, first_name);
 
         assertThat(first_names, hasItems("Luke", "Leia", "Anakin", "Bail", "Han"));
@@ -77,7 +77,8 @@ public class Exercise_1_Lambda_Expressions_Test {
 
         // TODO: Sort the list first by peoples last name, then by first name
         // HINT: Check out the new methods on java.util.Comparator
-        people.sort(undefined());
+        people.sort(comparing((Person p) -> p.getLastName())
+                .thenComparing((Person p) -> p.getFirstName()));
 
         assertThat(people.get(0).getFirstName(), is("Bail"));
     }

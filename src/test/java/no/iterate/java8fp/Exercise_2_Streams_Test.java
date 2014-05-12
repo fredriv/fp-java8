@@ -32,7 +32,9 @@ public class Exercise_2_Streams_Test {
         List<Integer> numbers = asList(17, 314, 123, 42, 100);
 
         // TODO: Filter the list of numbers, returning the numbers less than 100
-        List<Integer> below_100 = undefined();
+        List<Integer> below_100 = numbers.stream()
+                .filter(i -> i < 100)
+                .collect(toList());
 
         assertThat(below_100, hasItems(17, 42));
         assertThat(below_100, not(hasItems(314, 123, 100)));
@@ -49,7 +51,9 @@ public class Exercise_2_Streams_Test {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
         // TODO: Filter the list of people, returning the people who are teens
-        List<Person> teens = undefined();
+        List<Person> teens = people.stream()
+                .filter(p -> 13 <= p.getAge() && p.getAge() <= 19)
+                .collect(toList());
 
         assertThat(teens, hasItems(luke, leia));
         assertThat(teens, not(hasItems(anakin, bail, han)));
@@ -61,7 +65,9 @@ public class Exercise_2_Streams_Test {
 
         // TODO: Filter the list of people, returning the people whose last
         // name starts with the letter S
-        List<Person> people_S = undefined();
+        List<Person> people_S = people.stream()
+                .filter(p -> p.getLastName().startsWith("S"))
+                .collect(toList());
 
         assertThat(people_S, hasItems(luke, anakin, han));
         assertThat(people_S, not(hasItems(leia, bail)));
@@ -78,7 +84,9 @@ public class Exercise_2_Streams_Test {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
         // TODO: Find the first names of the people in the list
-        List<String> first_names = undefined();
+        List<String> first_names = people.stream()
+                .map(p -> p.getFirstName())
+                .collect(toList());
 
         assertThat(first_names, hasItems("Luke", "Leia", "Anakin", "Bail", "Han"));
     }
@@ -88,7 +96,10 @@ public class Exercise_2_Streams_Test {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
         // TODO: Find the first names of the teens in the list
-        List<String> first_names_of_teens = undefined();
+        List<String> first_names_of_teens = people.stream()
+                .filter(p -> p.getAge() <= 19)
+                .map(p -> p.getFirstName())
+                .collect(toList());
 
         assertThat(first_names_of_teens, hasItems("Luke", "Leia"));
         assertThat(first_names_of_teens, not(hasItems("Anakin", "Bail", "Han")));
@@ -106,7 +117,9 @@ public class Exercise_2_Streams_Test {
 
         // TODO: Find the max age of the people in the list
         // HINT: Check out the Stream::mapToInt method and IntStream subclass
-        int max_age = undefined();
+        int max_age = people.stream()
+                .mapToInt(p -> p.getAge())
+                .max().getAsInt();
 
         assertThat(max_age, is(54));
     }
@@ -116,7 +129,9 @@ public class Exercise_2_Streams_Test {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
         // TODO: Find the average age of the people in the list
-        double average_age = undefined();
+        double average_age = people.stream()
+                .mapToInt(p -> p.getAge())
+                .average().getAsDouble();
 
         assertThat(average_age, is((19 + 19 + 42 + 29 + 54) / 5.0));
     }
@@ -126,7 +141,9 @@ public class Exercise_2_Streams_Test {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
         // TODO: Find the number of teens in the list of people
-        long number_of_teens = undefined();
+        long number_of_teens = people.stream()
+                .filter(p -> p.getAge() <= 19)
+                .count();
 
         assertThat(number_of_teens, is(2L));
     }
@@ -136,7 +153,11 @@ public class Exercise_2_Streams_Test {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
         // TODO: Find the full name of the oldest person in the list
-        String full_name = undefined();
+        String full_name = people.stream()
+                .sorted(Comparator.comparing((Person p) -> p.getAge()).reversed())
+                .findFirst()
+                .map(p -> p.getFirstName() + " " + p.getLastName())
+                .get();
 
         assertThat(full_name, is("Bail Organa"));
     }
