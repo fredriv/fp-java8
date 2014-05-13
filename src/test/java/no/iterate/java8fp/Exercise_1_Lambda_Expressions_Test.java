@@ -64,7 +64,7 @@ public class Exercise_1_Lambda_Expressions_Test {
     public void first_names() {
         List<Person> people = asList(luke, leia, anakin, bail, han);
 
-        // TODO: Implement CheckPerson lambda which returns true for teens
+        // TODO: Implement Extractor which returns first name of people
         Extractor<Person, String> first_name = undefined();
         List<String> first_names = extract(people, first_name);
 
