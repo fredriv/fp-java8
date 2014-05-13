@@ -41,7 +41,7 @@ public class Exercise_2_Streams_Test {
     Person luke = new Person("Luke", "Skywalker", 19);
     Person leia = new Person("Leia", "Organa", 19);
     Person anakin = new Person("Anakin", "Skywalker", 42);
-    Person bail = new Person("Bail", "Organa", 55);
+    Person bail = new Person("Bail", "Organa", 54);
     Person han = new Person("Han", "Solo", 29);
 
     @Test
