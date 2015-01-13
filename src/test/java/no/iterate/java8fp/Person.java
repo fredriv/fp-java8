@@ -1,6 +1,7 @@
 package no.iterate.java8fp;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class Person {
 
@@ -8,11 +9,21 @@ public class Person {
 
     private final String lastName;
 
+    private final Optional<String> sithName;
+
     private final int age;
 
     public Person(String firstName, String lastName, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.sithName = Optional.empty();
+        this.age = age;
+    }
+
+    public Person(String firstName, String lastName, String sithName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sithName = Optional.of(sithName);
         this.age = age;
     }
 
@@ -26,6 +37,10 @@ public class Person {
 
     public int getAge() {
         return age;
+    }
+
+    public Optional<String> getSithName() {
+        return sithName;
     }
 
     @Override

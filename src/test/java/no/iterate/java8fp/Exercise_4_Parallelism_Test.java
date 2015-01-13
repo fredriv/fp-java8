@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.number.OrderingComparison.lessThan;
 import static org.junit.Assert.assertThat;
 
-public class Exercise_3_Parallelism_Test {
+public class Exercise_4_Parallelism_Test {
 
     Person luke = new Person("Luke", "Skywalker", 19);
     Person leia = new Person("Leia", "Organa", 19);
