@@ -131,14 +131,4 @@ public class Exercise_2_Streams_Test {
         assertThat(number_of_teens, is(2L));
     }
 
-    @Test
-    public void name_of_oldest_person() {
-        List<Person> people = asList(luke, leia, anakin, bail, han);
-
-        // TODO: Find the full name of the oldest person in the list
-        String full_name = undefined();
-
-        assertThat(full_name, is("Bail Organa"));
-    }
-
 }
